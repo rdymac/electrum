@@ -20,7 +20,7 @@ from electrum import bmp, pyqrnative
 from electrum.plugins import BasePlugin
 from electrum.i18n import _
 
-from electrum_gui.gui_classic import HelpButton
+from electrum_gui.qt import HelpButton
 
 class Plugin(BasePlugin):
 
@@ -28,7 +28,7 @@ class Plugin(BasePlugin):
         return _('Label Sync')
 
     def description(self):
-        return '%s\n\n%s%s%s' % (_("This plugin can sync your labels across multiple Electrum installs by using a remote database to save your data. Labels, transactions and addresses are all sent and stored encrypted on the remote server. This code might increase the load of your wallet with a few microseconds as it will sync labels on each startup."), _("To get started visit"), " http://labelectrum.herokuapp.com/", _(" to sign up for an account."))
+        return '%s\n\n%s%s%s' % (_("This plugin can sync your labels across multiple Electrum installs by using a remote database to save your data. Labels, transactions and addresses are all sent and stored encrypted on the remote server. This code might increase the load of your wallet with a few microseconds as it will sync labels on each startup."), _("To get started visit"), " http://labelectrum.herokuapp.com/ ", _(" to sign up for an account."))
 
     def version(self):
         return "0.2.1"
@@ -47,7 +47,8 @@ class Plugin(BasePlugin):
 
     def init(self):
         self.target_host = 'labelectrum.herokuapp.com'
-        self.wallet = self.gui.wallet
+        self.window = self.gui.main_window
+        self.wallet = self.window.wallet
         self.labels = self.wallet.labels
         self.transactions = self.wallet.transactions
         mpk = self.wallet.master_public_keys["m/0'/"][1]
@@ -103,7 +104,7 @@ class Plugin(BasePlugin):
               self.download.setEnabled(False)
               self.accept.setEnabled(False)
 
-        d = QDialog(self.gui)
+        d = QDialog(self.window)
         layout = QGridLayout(d)
         layout.addWidget(QLabel("API Key: "),0,0)
 
@@ -161,10 +162,10 @@ class Plugin(BasePlugin):
     def full_pull(self, force = False):
         if self.do_full_pull(force) and force:
             QMessageBox.information(None, _("Labels synchronized"), _("Your labels have been synchronized."))
-            self.gui.update_history_tab()
-            self.gui.update_completions()
-            self.gui.update_receive_tab()
-            self.gui.update_contacts_tab()
+            self.window.update_history_tab()
+            self.window.update_completions()
+            self.window.update_receive_tab()
+            self.window.update_contacts_tab()
 
     def do_full_push(self):
         try:
