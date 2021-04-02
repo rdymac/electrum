@@ -57,7 +57,7 @@ class SettingsDialog(WindowModalDialog):
         self.need_restart = False
         self.fx = self.window.fx
         self.wallet = self.window.wallet
-        
+
         vbox = QVBoxLayout()
         tabs = QTabWidget()
         gui_widgets = []
@@ -162,7 +162,7 @@ class SettingsDialog(WindowModalDialog):
 
         help_remote_wt = ' '.join([
             _("A watchtower is a daemon that watches your channels and prevents the other party from stealing funds by broadcasting an old state."),
-            _("If you have private a watchtower, enter its URL here."),
+            _("If you have a private watchtower, enter its URL here."),
             _("Check our online documentation if you want to configure Electrum as a watchtower."),
         ])
         remote_wt_cb = QCheckBox(_("Use a remote watchtower"))
@@ -505,7 +505,7 @@ class SettingsDialog(WindowModalDialog):
         vbox.addStretch(1)
         vbox.addLayout(Buttons(CloseButton(self)))
         self.setLayout(vbox)
-        
+
     def set_alias_color(self):
         if not self.config.get('alias'):
             self.alias_e.setStyleSheet("")
