@@ -1,0 +1,11 @@
+[project]
+name = "electrum-ark-plugin"
+version = "0.1.0"
+description = "Standalone Electrum plugin for Arkade / arkd"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.6"
+authors = [{ name = "Randy Brito" }]
+
+[tool.setuptools.packages.find]
+include = ["ark*"]
