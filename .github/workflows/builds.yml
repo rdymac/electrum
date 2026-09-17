@@ -1,8 +1,6 @@
 name: builds
 
 on:
-  schedule:
-    - cron: '30 2 * * *'   # 02:30 UTC daily
   workflow_dispatch:
     inputs:
       target:
@@ -23,7 +21,7 @@ permissions:
 
 concurrency:
   group: builds-${{ github.ref }}
-  cancel-in-progress: false   # never kill a nightly or in-progress build
+  cancel-in-progress: false   # never kill an in-progress build
 
 env:
   ARTIFACT_RETENTION: '14'
